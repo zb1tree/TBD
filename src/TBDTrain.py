@@ -32,10 +32,10 @@ if __name__ == '__main__':
         trainer.data_prepare(eid2tids1, eid2tids2, fs1, fs2)
         trainer.train(device=device)
 
-    rel_trainer = RelationTrainer()
-    rel_trainer.data_prepare(eid2tids1, eid2tids2, fs1, fs2)
-    if args.basic_bert_path is None:
-        bert_model_path = links.model_save
-    else:
-        bert_model_path = args.basic_bert_path
-    rel_trainer.train(bert_model_path, device=device)
+    # rel_trainer = RelationTrainer()
+    # rel_trainer.data_prepare(eid2tids1, eid2tids2, fs1, fs2)
+    # if args.basic_bert_path is None:
+    #     bert_model_path = links.model_save
+    # else:
+    #     bert_model_path = args.basic_bert_path
+    # rel_trainer.train(bert_model_path, device=device)
