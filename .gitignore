@@ -1,0 +1,8 @@
+/data/**
+/outputs/**
+/src/data
+/src/outputs
+/pre_trained_models
+/src/pre_trained_models
+*.pdf
+*.pyc
