@@ -1,0 +1,65 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: DBPDSPreprocess.py",
+            "type": "python",
+            "request": "launch",
+            "program": "DBPDSPreprocess.py",
+            "env": {},
+            "console": "integratedTerminal",
+            "args": [],
+            "cwd": "/home/b1tree/TBD/src"
+        },
+        {
+            "name": "Python: -u SDEAPreprocess.py --datasets_root ../data --dataset zh_en --result_root ../outputs --pretrain_bert_path ../pre_trained_models/bert-base-multilingual-uncased --log --relation --version SDEA",
+            "type": "python",
+            "request": "launch",
+            "program": "SDEAPreprocess.py",
+            "env": {},
+            "console": "integratedTerminal",
+            "args": [
+                "--datasets_root",
+                "../data",
+                "--dataset",
+                "zh_en",
+                "--result_root",
+                "../outputs",
+                "--pretrain_bert_path",
+                "../pre_trained_models/bert-base-multilingual-uncased",
+                "--log",
+                "--relation",
+                "--version",
+                "SDEA"
+            ],
+            "cwd": "/home/b1tree/TBD/src"
+        },
+        {
+            "name": "Python: -u TBDTrain.py --datasets_root ../data --dataset zh_en --result_root ../outputs --pretrain_bert_path ../pre_trained_models/bert-base-multilingual-uncased --log --relation --version SDEA --fold 0 --gpus 0",
+            "type": "python",
+            "request": "launch",
+            "program": "TBDTrain.py",
+            "env": {},
+            "console": "integratedTerminal",
+            "args": [
+                "--datasets_root",
+                "../data",
+                "--dataset",
+                "zh_en",
+                "--result_root",
+                "../outputs",
+                "--pretrain_bert_path",
+                "../pre_trained_models/bert-base-multilingual-uncased",
+                "--log",
+                "--relation",
+                "--version",
+                "SDEA",
+                "--fold",
+                "0",
+                "--gpus",
+                "2"
+            ],
+            "cwd": "/home/b1tree/TBD/src"
+        }
+    ]
+}
