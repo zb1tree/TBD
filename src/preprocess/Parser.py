@@ -10,7 +10,7 @@ pref = {
     "xsd:": "http://www.w3.org/2001/XMLSchema#",
     "owl:": "http://www.w3.org/2002/07/owl#", "skos:": "http://www.w3.org/2004/02/skos/core#",
     "dc:": "http://purl.org/dc/terms/",
-    "foaf:": "http://xmlns.com/foaf/0.1/",
+    "foaf:": "http://xmlns.com/foaf/",
     "vcard:": "http://www.w3.org/2006/vcard/ns#",
     "dbp:": "http://dbpedia.org/",
     "y1:": "http://www.mpii.de/yago/resource/",
@@ -51,6 +51,7 @@ def compress_uri(uri):
         for key, val in pref.items():
             if uri.startswith(val):
                 uri = uri.replace(val, key)
+                break
     return uri
 
 
@@ -58,7 +59,7 @@ def oea_attr_line(line: str):
     fact: List[str] = line.strip('\n').split('\t')
     if not fact[2].startswith('"'):
         fact[2] = ''.join(('"', fact[2], '"'))
-    return compress_uri(fact[0]).split('/')[1], compress_uri(fact[1]).split('/')[1], compress_uri(fact[2])
+    return compress_uri(fact[0]).split('/')[-1], compress_uri(fact[1]).split('/')[-1], compress_uri(fact[2])
 
 
 def oea_rel_line(line: str) -> Tuple:

@@ -94,7 +94,7 @@ class KBStore:
     def save_seq_form(self, dicts: Iterator, header: List):
         def get_seq(dic: dict):
             eid = dic['id']
-            values = [dic[key] for key in header if key in dic]
+            values = [str(dic[key]) for key in header if key in dic]
             seq = ' '.join(values)
             assert len(seq) > 0
             return eid, seq
@@ -204,6 +204,8 @@ class KBStore:
 
             for pid, objs in fact_aggregation.items():
                 pred = self.properties[pid]
+                if pred=='id':
+                    continue
                 obj = ' '.join(objs)
                 dic[pred] = obj
 

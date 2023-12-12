@@ -212,14 +212,14 @@ class PairwiseTrainer(MultiprocessingTool):
             tt = TrainingTools(train_loader, device=device)
             # for i, batch in TrainingTools.batch_iter(train_loader):
             # 先训练实体embedding，然后固定实体embedding，再训练relation embedding
-            # for i, batch in tt.batches(lambda batch: len(batch[0][0])):
-            #     optimizer.zero_grad()
-            #     loss = self.train_batch(bert_model, tt, batch, criterion, device)
+            for i, batch in tt.batches(lambda batch: len(batch[0][0])):
+                optimizer.zero_grad()
+                loss = self.train_batch(bert_model, tt, batch, criterion, device)
 
-            #     loss.backward()
-            #     optimizer.step()
-            #     # t.cuda.empty_cache()
-            # print()
+                loss.backward()
+                optimizer.step()
+                # t.cuda.empty_cache()
+            print()
             # TODO relation
             # bert_model.eval()
             # print(Announce.printMessage(), 'Relation')
@@ -276,29 +276,30 @@ class PairwiseTrainer(MultiprocessingTool):
             #     optimizer.step()
             #     # t.cuda.empty_cache()
             # print()
-            # if VALID:
-            #     print('valid')
-            #     if DEBUG:
-            #         valid_tups = self.generate_train_tups(bert_model, self.valid_ent1s_p, self.valid_ent2s_p, self.valid_links_p, device,False)
-            #         # t.cuda.empty_cache()
-            #         valid_ds = PairwiseDataset(valid_tups, self.eid2data1, self.eid2data2)
-            #         valid_samp = SequentialSampler(valid_ds)
-            #         valid_loader = DataLoader(valid_ds, sampler=valid_samp, batch_size=self.train_emb_batch * 4)
-            #         vt = TrainingTools(valid_loader, device=device)
-            #     bert_model.eval()
-            #     with t.no_grad():
-            #         if DEBUG:
-            #             for i, batch in vt.batches(lambda batch: len(batch[0][0])):
-            #                 loss = self.train_batch(bert_model, vt, batch, criterion, device)
-            #                 # t.cuda.empty_cache()
-            #         hit_values = self.get_hits(bert_model, self.valid_link_loader1, self.valid_link_loader2, device=device)
-            #         # if hit_values[0] > max_hit1:
-            #         #     print("hits@1:", max_hit1, '->', hit_values[0])
-            #         #     max_hit1 = hit_values
-            #         stop = model_tool.early_stopping(bert_model, links.model_save, hit_values[0])
-            # else:
-            #     ModelTools.save_model(bert_model, links.model_save)
-            # print(Announce.printMessage(), 'test phase')
+            
+            if VALID:
+                print('valid')
+                if DEBUG:
+                    valid_tups = self.generate_train_tups(bert_model, self.valid_ent1s_p, self.valid_ent2s_p, self.valid_links_p, device,False)
+                    # t.cuda.empty_cache()
+                    valid_ds = PairwiseDataset(valid_tups, self.eid2data1, self.eid2data2)
+                    valid_samp = SequentialSampler(valid_ds)
+                    valid_loader = DataLoader(valid_ds, sampler=valid_samp, batch_size=self.train_emb_batch * 4)
+                    vt = TrainingTools(valid_loader, device=device)
+                bert_model.eval()
+                with t.no_grad():
+                    if DEBUG:
+                        for i, batch in vt.batches(lambda batch: len(batch[0][0])):
+                            loss = self.train_batch(bert_model, vt, batch, criterion, device)
+                            # t.cuda.empty_cache()
+                    hit_values = self.get_hits(bert_model, self.valid_link_loader1, self.valid_link_loader2, device=device)
+                    # if hit_values[0] > max_hit1:
+                    #     print("hits@1:", max_hit1, '->', hit_values[0])
+                    #     max_hit1 = hit_values
+                    stop = model_tool.early_stopping(bert_model, links.model_save, hit_values[0])
+            else:
+                ModelTools.save_model(bert_model, links.model_save)
+            print(Announce.printMessage(), 'test phase')
             self.get_hits(bert_model, self.test_link_loader1, self.test_link_loader2, device=device)
             # test_link_loader_r1 = RelationValidDataset(self.test_ent1s, self.fs1, all_embed1s, self.train_emb_batch)
             # test_link_loader_r2 = RelationValidDataset(self.test_ent2s, self.fs2, all_embed2s, self.train_emb_batch)

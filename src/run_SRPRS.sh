@@ -18,7 +18,7 @@ echo $paras
 python -u SDEAPreprocess.py $paras
 paras="$paras --fold 0"
 paras="$paras --gpus ${gpus}"
-python -u SDEATrain.py $paras
+python -u TBDTrain.py $paras
 
 
 # dbp_yg_15k_V1
@@ -34,7 +34,7 @@ echo $paras
 python -u SDEAPreprocess.py $paras
 paras="$paras --fold 0"
 paras="$paras --gpus ${gpus}"
-python -u SDEATrain.py $paras
+python -u TBDTrain.py $paras
 
 
 # en_de_15k_V1
@@ -50,7 +50,7 @@ echo $paras
 python -u SDEAPreprocess.py $paras
 paras="$paras --fold 0"
 paras="$paras --gpus ${gpus}"
-python -u SDEATrain.py $paras
+python -u TBDTrain.py $paras
 
 
 # en_fr_15k_V1
@@ -66,4 +66,4 @@ echo $paras
 python -u SDEAPreprocess.py $paras
 paras="$paras --fold 0"
 paras="$paras --gpus ${gpus}"
-python -u SDEATrain.py $paras
+python -u TBDTrain.py $paras
